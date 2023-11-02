@@ -1,17 +1,18 @@
 import React from 'react';
-
-import PhotoList from 'components/PhotoList';
-
-
 import './App.scss';
 
-// Note: Rendering a single component to build components in isolation
+import TopNavigationBar from 'components/TopNavigationBar';
+import HomeRoute from 'components/HomeRoute';
+
+import photos from 'mocks/photos';
+import topics from 'mocks/topics';
 
 
 const App = () => {
   return (
     <div className="App">
-        <PhotoList />
+      <TopNavigationBar topics={topics} />
+      <HomeRoute photos={photos} />
     </div>
   );
 };

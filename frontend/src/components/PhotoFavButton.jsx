@@ -15,7 +15,7 @@ function PhotoFavButton() {
     <div className="photo-list__fav-icon">
       <div className="photo-list__fav-icon-svg">
         {isLiked ? (
-          <FavIcon displayAlert={isLiked} selected={isLiked} onClick={handleLike}/>
+          <FavIcon selected={isLiked} onClick={handleLike}/>
         ) : ( 
           <FavBadge isFavPhotoExist={isLiked} onClick={handleLike}/>
         )}
