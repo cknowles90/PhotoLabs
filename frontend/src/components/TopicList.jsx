@@ -23,7 +23,9 @@ const sampleDataForTopicList = [
 const TopicList = () => {
   return (
     <div className="top-nav-bar__topic-list">
-      {/* Insert React */}
+      <li className="topic-list__item">
+        <div className=""></div>
+      </li>
     </div>
   );
 };

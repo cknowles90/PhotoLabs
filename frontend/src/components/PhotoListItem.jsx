@@ -8,7 +8,7 @@ import PhotoFavButton from "./PhotoFavButton";
 
 
 const PhotoListItem = ({ photo }) => {
-  const photos = Array.from(Array(e));
+
 
   return (
   <div className="photo-list__item">
