@@ -5,8 +5,8 @@ const photo1 = {
     "country": "Canada"
   },
   "urls": {
-    "full": `${process.env.PUBLIC_URL}/Image-1-Full.jpeg`,
-    "regular": `${process.env.PUBLIC_URL}/Image-1-Regular.jpeg`
+    "full": `${process.env.PUBLIC_URL}/Image-1-Full.jpg`,
+    "regular": `${process.env.PUBLIC_URL}/Image-1-Regular.jpg`
   },
   "user": {
     "id": "1",
@@ -23,8 +23,8 @@ const photo2 = {
     "country": "Canada"
   },
   "urls": {
-    "full": `${process.env.PUBLIC_URL}/Image-2-Full.jpeg`,
-    "regular": `${process.env.PUBLIC_URL}/Image-2-Regular.jpeg`
+    "full": `${process.env.PUBLIC_URL}/Image-2-Full.jpg`,
+    "regular": `${process.env.PUBLIC_URL}/Image-2-Regular.jpg`
   },
   "user": {
     "id": "2",
@@ -41,8 +41,8 @@ const photo3 = {
     "country": "Canada"
   },
   "urls": {
-    "full": `${process.env.PUBLIC_URL}/Image-3-Full.jpeg`,
-    "regular": `${process.env.PUBLIC_URL}/Image-3-Regular.jpeg`
+    "full": `${process.env.PUBLIC_URL}/Image-3-Full.jpg`,
+    "regular": `${process.env.PUBLIC_URL}/Image-3-Regular.jpg`
   },
   "user": {
     "id": "3",
@@ -274,5 +274,6 @@ const photos = [
     }
   }
 ]
+
 
 export default photos;
