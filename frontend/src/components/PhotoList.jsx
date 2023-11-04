@@ -10,7 +10,13 @@ const PhotoList = ({ photos, likedPhotos, setLikedPhotos, onPhotoClick }) => {
   return (
     <div className="photo-list">
       {photos.map((photo) => (
-        <PhotoListItem key={photo.id} likedPhotos={likedPhotos} setLikedPhotos={setLikedPhotos} photo={photo} onPhotoClick={onPhotoClick} />
+        <PhotoListItem 
+          key={photo.id} 
+          likedPhotos={likedPhotos} 
+          setLikedPhotos={setLikedPhotos} 
+          photo={photo} 
+          onPhotoClick={onPhotoClick} 
+        />
       ))}
     </div>
   );

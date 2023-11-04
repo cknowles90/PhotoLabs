@@ -11,6 +11,7 @@ import photos from 'mocks/photos';
 const App = () => {
   const [likedPhotos, setLikedPhotos] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
 
   // console.log('App likedPhotos', likedPhotos);
   // console.log('App isModalOpen', isModalOpen);
@@ -24,9 +25,10 @@ const App = () => {
 
   console.log('App handleLikeClicked', handleLikeClicked);
 
-  const handleOpenModal = () => {
+  const handleOpenModal = (photo) => {
     // console.log('Opening modal...');
     setIsModalOpen(true);
+    setSelectedPhoto(photo);
   };
 
   const handleCloseModal = () => {
@@ -45,8 +47,11 @@ const App = () => {
         onPhotoClick={handleOpenModal}
       />
 
-      {isModalOpen && (
-        <PhotoDetailsModal onCloseModal={handleCloseModal} />
+      {selectedPhoto && isModalOpen && (
+        <PhotoDetailsModal 
+          onCloseModal={handleCloseModal} 
+          selectedPhoto={selectedPhoto}
+        />
       )}
     </div>
   );
