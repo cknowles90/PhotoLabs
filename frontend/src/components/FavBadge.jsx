@@ -5,7 +5,6 @@ import '../styles/FavBadge.scss';
 
 const FavBadge = ({ displayAlert }) => {
 
-
   return (
     <div className='fav-badge'>
       <FavIcon displayAlert={displayAlert} selected={true} /> 

@@ -4,7 +4,14 @@ import "../styles/PhotoListItem.scss";
 import PhotoFavButton from "./PhotoFavButton";
 
 
-const PhotoListItem = ({ photo, likedPhotos, setLikedPhotos, displayAlert }) => {
+const PhotoListItem = ({ photo, likedPhotos, setLikedPhotos, displayAlert, onPhotoClick }) => {
+  // console.log('Received props:', photo, likedPhotos, setLikedPhotos, displayAlert);
+  console.log('Value of onPhotoClick prop in PhotoListItem:', onPhotoClick);
+
+  const handleImageClick = () => {
+    console.log('Image clicked:', photo);
+    onPhotoClick(photo);
+  };
   
   return (
   <div className="photo-list__item">
@@ -18,6 +25,7 @@ const PhotoListItem = ({ photo, likedPhotos, setLikedPhotos, displayAlert }) => 
       className="photo-list__image" 
       src={photo.urls.regular} 
       alt={`Image ${photo.id}`} 
+      onClick={handleImageClick}
     />
     
     <div className="photo-list__container">

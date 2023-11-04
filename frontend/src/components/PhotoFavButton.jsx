@@ -12,7 +12,6 @@ function PhotoFavButton({ photo, setLikedPhotos, displayAlert }) {
     setLikedPhotos(photo);
   };
 
-
   return (
     <div className="photo-list__fav-icon" onClick={handleLike}>
       <div className="photo-list__fav-icon-svg">
