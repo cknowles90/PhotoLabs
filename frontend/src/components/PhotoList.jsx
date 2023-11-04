@@ -4,7 +4,7 @@ import '../styles/PhotoList.scss';
 import PhotoListItem from './PhotoListItem';
 
 
-const PhotoList = ({ photos, likedPhotos, setLikedPhotos, onPhotoClick }) => {
+const PhotoList = ({ photos, likedPhotos, setLikedPhotos, onPhotoClick, selectedPhoto }) => {
   console.log('Value of onPhotoClick prop in PhotoList', onPhotoClick)
 
   return (
@@ -16,6 +16,7 @@ const PhotoList = ({ photos, likedPhotos, setLikedPhotos, onPhotoClick }) => {
           setLikedPhotos={setLikedPhotos} 
           photo={photo} 
           onPhotoClick={onPhotoClick} 
+          selectedPhoto={selectedPhoto}
         />
       ))}
     </div>

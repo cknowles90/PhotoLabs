@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import './App.scss';
 
 import TopNavigationBar from 'components/TopNavigationBar';
-import HomeRoute from 'components/HomeRoute';
-import PhotoDetailsModal from 'components/PhotoDetailsModal';
+
+import HomeRoute from 'routes/HomeRoute';
+import PhotoDetailsModal from 'routes/PhotoDetailsModal';
 
 import photos from 'mocks/photos';
 
@@ -46,11 +47,11 @@ const App = () => {
         setLikedPhotos={handleLikeClicked}
         onPhotoClick={handleOpenModal}
       />
-
       {selectedPhoto && isModalOpen && (
         <PhotoDetailsModal 
           onCloseModal={handleCloseModal} 
           selectedPhoto={selectedPhoto}
+          setLikedPhotos={setLikedPhotos}
         />
       )}
     </div>

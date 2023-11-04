@@ -4,7 +4,8 @@ import '../styles/TopNavigationBar.scss'
 import TopicList from './TopicList';
 import FavBadge from './FavBadge';
 
-const TopNavigationBar = ({ likedPhotos }) => {
+
+const TopNavigationBar = ({ likedPhotos = [] }) => {
 // console.log('likedPhotos', likedPhotos);
 
   return (

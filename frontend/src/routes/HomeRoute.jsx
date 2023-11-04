@@ -1,7 +1,7 @@
 import React, {} from 'react';
 import "../styles/HomeRoute.scss";
 
-import PhotoList from './PhotoList';
+import PhotoList from '../components/PhotoList';
 
 
 const HomeRoute = ({ photos, likedPhotos, setLikedPhotos, onPhotoClick }) => {
