@@ -5,19 +5,27 @@ import TopNavigationBar from 'components/TopNavigationBar';
 import HomeRoute from 'components/HomeRoute';
 
 import photos from 'mocks/photos';
+// import PhotoDetailsModal from 'components/PhotoDetailsModal';
 
 
 const App = () => {
-  const [isFavPhotoExist, setIsFavPhotoExist] = useState(false);
+  const [likedPhotos, setLikedPhotos] = useState([]);
 
-  const handleLikeClicked = () => {
-    setIsFavPhotoExist(true);
+  const handleLikeClicked = (photoId) => {
+    console.log(photoId)
+    if (likedPhotos.includes(photoId)) {
+      return setLikedPhotos([...likedPhotos.filter((photo) => photo !== photoId )]);
+    }
+      setLikedPhotos([...likedPhotos, photoId]);
   };
+
+  console.log('likedPhotos in App:', likedPhotos)
 
   return (
     <div className="App">
-      <TopNavigationBar isFavPhotoExist={isFavPhotoExist} onclick={handleLikeClicked} />
-      <HomeRoute photos={photos} isFavPhotoExist={isFavPhotoExist} onclick={handleLikeClicked} />
+      <TopNavigationBar likedPhotos={likedPhotos} />
+      <HomeRoute photos={photos} likedPhotos={likedPhotos} setLikedPhotos={handleLikeClicked}/>
+      {/* <PhotoDetailsModal /> */}
     </div>
   );
 };
