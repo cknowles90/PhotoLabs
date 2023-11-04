@@ -4,12 +4,12 @@ import '../styles/PhotoFavButton.scss';
 import FavIcon from './FavIcon';
 
 
-function PhotoFavButton({ photoId, likedPhotos, setLikedPhotos, displayAlert }) {
+function PhotoFavButton({ photo, setLikedPhotos, displayAlert }) {
   const [isLiked, setIsLiked] = useState(false);
-  console.log('displayAlert PFB', displayAlert);
+
   const handleLike = () => {
     setIsLiked(!isLiked);
-    setLikedPhotos(photoId);
+    setLikedPhotos(photo);
   };
 
 

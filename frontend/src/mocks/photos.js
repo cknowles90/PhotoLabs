@@ -16,41 +16,41 @@ const photo1 = {
   }
 }
 
-// const photo2 = {
-//   "id": "2",
-//   "location": {
-//     "city": "Toronto",
-//     "country": "Canada"
-//   },
-//   "urls": {
-//     "full": `${process.env.PUBLIC_URL}/Image-2-Full.jpg`,
-//     "regular": `${process.env.PUBLIC_URL}/Image-2-Regular.jpg`
-//   },
-//   "user": {
-//     "id": "2",
-//     "username": "exampleuser",
-//     "name": "Joe Example",
-//     "profile": `${process.env.PUBLIC_URL}/profile-1.jpg`
-//   }
-// }
+const photo2 = {
+  "id": "2",
+  "location": {
+    "city": "Toronto",
+    "country": "Canada"
+  },
+  "urls": {
+    "full": `${process.env.PUBLIC_URL}/Image-2-Full.jpg`,
+    "regular": `${process.env.PUBLIC_URL}/Image-2-Regular.jpg`
+  },
+  "user": {
+    "id": "2",
+    "username": "exampleuser",
+    "name": "Joe Example",
+    "profile": `${process.env.PUBLIC_URL}/profile-1.jpg`
+  }
+}
 
-// const photo3 = {
-//   "id": "3",
-//   "location": {
-//     "city": "Ottawa",
-//     "country": "Canada"
-//   },
-//   "urls": {
-//     "full": `${process.env.PUBLIC_URL}/Image-3-Full.jpg`,
-//     "regular": `${process.env.PUBLIC_URL}/Image-3-Regular.jpg`
-//   },
-//   "user": {
-//     "id": "3",
-//     "username": "exampleuser",
-//     "name": "Joe Example",
-//     "profile": `${process.env.PUBLIC_URL}/profile-1.jpg`
-//   }
-// }
+const photo3 = {
+  "id": "3",
+  "location": {
+    "city": "Ottawa",
+    "country": "Canada"
+  },
+  "urls": {
+    "full": `${process.env.PUBLIC_URL}/Image-3-Full.jpg`,
+    "regular": `${process.env.PUBLIC_URL}/Image-3-Regular.jpg`
+  },
+  "user": {
+    "id": "3",
+    "username": "exampleuser",
+    "name": "Joe Example",
+    "profile": `${process.env.PUBLIC_URL}/profile-1.jpg`
+  }
+}
 
 // const photo4 = {
 //   "id": "4",
@@ -186,93 +186,93 @@ const photos = [
   {
     ...photo1,
     similar_photos: {
-      // photo2,
-      // photo3,
+      photo2,
+      photo3,
       // photo4,
       // photo5,
     }
   },
-//   {
-//     ...photo2,
-//     similar_photos: {
-//       photo2,
-//       photo3,
-//       photo4,
-//       photo5,
-//     }
-//   },
-//   {
-//     ...photo3,
-//     similar_photos: {
-//       photo2,
-//       photo3,
-//       photo4,
-//       photo5,
-//     }
-//   },
-//   {
-//     ...photo4,
-//     similar_photos: {
-//       photo2,
-//       photo3,
-//       photo4,
-//       photo5,
-//     }
-//   },
-//   {
-//     ...photo5,
-//     similar_photos: {
-//       photo2,
-//       photo3,
-//       photo4,
-//       photo5,
-//     }
-//   },
-//   {
-//     ...photo6,
-//     similar_photos: {
-//       photo2,
-//       photo3,
-//       photo4,
-//       photo5,
-//     }
-//   },
-//   {
-//     ...photo7,
-//     similar_photos: {
-//       photo2,
-//       photo3,
-//       photo4,
-//       photo5,
-//     }
-//   },
-//   {
-//     ...photo8,
-//     similar_photos: {
-//       photo2,
-//       photo3,
-//       photo4,
-//       photo5,
-//     }
-//   },
-//   {
-//     ...photo9,
-//     similar_photos: {
-//       photo2,
-//       photo3,
-//       photo4,
-//       photo5,
-//     }
-//   },
-//   {
-//     ...photo10,
-//     similar_photos: {
-//       photo2,
-//       photo3,
-//       photo4,
-//       photo5,
-//     }
-//   }
+  {
+    ...photo2,
+    similar_photos: {
+      photo2,
+      photo3,
+      // photo4,
+      // photo5,
+    }
+  },
+  {
+    ...photo3,
+    similar_photos: {
+      photo2,
+      photo3,
+      // photo4,
+      // photo5,
+    }
+  },
+  // {
+  //   ...photo4,
+  //   similar_photos: {
+  //     photo2,
+  //     photo3,
+  //     photo4,
+  //     photo5,
+  //   }
+  // },
+  // {
+  //   ...photo5,
+  //   similar_photos: {
+  //     photo2,
+  //     photo3,
+  //     photo4,
+  //     photo5,
+  //   }
+  // },
+  // {
+  //   ...photo6,
+  //   similar_photos: {
+  //     photo2,
+  //     photo3,
+  //     photo4,
+  //     photo5,
+  //   }
+  // },
+  // {
+  //   ...photo7,
+  //   similar_photos: {
+  //     photo2,
+  //     photo3,
+  //     photo4,
+  //     photo5,
+  //   }
+  // },
+  // {
+  //   ...photo8,
+  //   similar_photos: {
+  //     photo2,
+  //     photo3,
+  //     photo4,
+  //     photo5,
+  //   }
+  // },
+  // {
+  //   ...photo9,
+  //   similar_photos: {
+  //     photo2,
+  //     photo3,
+  //     photo4,
+  //     photo5,
+  //   }
+  // },
+  // {
+  //   ...photo10,
+  //   similar_photos: {
+  //     photo2,
+  //     photo3,
+  //     photo4,
+  //     photo5,
+  //   }
+  // }
 ]
 
 

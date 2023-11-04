@@ -4,7 +4,6 @@ import "../styles/HomeRoute.scss";
 import PhotoList from './PhotoList';
 
 
-
 const HomeRoute = ({ photos, likedPhotos, setLikedPhotos }) => {
 console.log('likedPhotos HR', likedPhotos);
   return (
