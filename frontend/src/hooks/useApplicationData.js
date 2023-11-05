@@ -1,40 +1,54 @@
 import { useState } from 'react';
 
-// import photos from 'mocks/photos';
+import photos from 'mocks/photos';
 
+// React Hook :  useApplicationData;
 const useApplicationData = () => {
+
+  // Initialize 'state' Hook with useState;
   const [state, setState] = useState({
-    likedPhotos: [],
+    // Holds various different properties;
+    likedPhotos: [], 
     isModalOpen: false,
     selectedPhoto: null,
-    photos: [],
   });
 
-  console.log('State and Data in useApplicationData:', state);
 
+  console.log('State and Data in useApplicationData:', state);
+  // Function :  'onPhotoSelect' - takes a 'photo' object as an array as an argument;
   const onPhotoSelect = (photo) => {
+    // Update 'state', creates a new object with the 'selectedPhotos':'photo' and 'isModalOpen':true;
     setState((prev) => ({...prev, selectedPhoto: photo, isModalOpen: true }));
   };
 
+  // Function : 'updateToFavPhotoIds' - takes a 'photo' object as an argument;
   const updateToFavPhotoIds = (photo) => {
+    // Update 'state' based on;
     setState((prev) => {
+      // If 'photo' is already in the 'likedPhotos' array;
       if (prev.likedPhotos.some((likedPhotos) => likedPhotos.id === photo.id)) {
+        // If 'likedPhotos' is already liked, remove from 'likedPhotos';
         return { ...prev, likedPhotos: prev.likedPhotos.filter((likedPhoto) => likedPhoto.id !== photo.id) };
       } else {
+        // If 'photo' is not liked, add to 'likedPhotos';
         return { ...prev, likedPhotos: [...prev.likedPhotos, photo] };
       }
     });
   };
 
+  // Function :  'onClosePhotoDetailModal;
   const onClosePhotoDetailModal = () => {
+    // Closes the 'photo-details-modal', sets 'isModalOpen': false;
     setState((prev) => ({ ...prev, isModalOpen: false }));
   };
 
+  // Returns 'state' + functions for use as Hooks in multiple/different components;
   return {
-    state,
+    
     onPhotoSelect,
     updateToFavPhotoIds,
     onClosePhotoDetailModal,
+    photos,
   };
 };
 

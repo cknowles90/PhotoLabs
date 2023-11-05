@@ -2,38 +2,47 @@ import React from "react";
 import "../styles/PhotoListItem.scss";
 
 import PhotoFavButton from "./PhotoFavButton";
-import useApplicationData from "hooks/useApplicationData";
 
 
-const PhotoListItem = () => {
-  
+// 'PhotoListItem' component;
+const PhotoListItem = (props) => {
   const {
-    state: { selectedPhoto, likedPhotos },
+    photo,
+    likedPhotos,
+    updateToFavPhotoIds,
     onPhotoSelect,
-  } = useApplicationData();
-  
-  console.log(`PhotoListItem: likedPhotos`, likedPhotos);
-  console.log('PhotoListItem: selectedPhoto', selectedPhoto);
+    isModalOpen,
+    selectedPhoto,
+  } = props;
 
+  // Function :  'handleImageClick';
   const handleImageClick = () => {
+    // when 'photo' is selected, 'selectedPhoto' is stored with 'photo' information;
     onPhotoSelect(selectedPhoto);
   };
   
+  // JSX structure for 'PhotoListItem' component;
   return (
     <div className="photo-list__item">
+      {/* Render 'PhotoFavButton' component with prop: 'displayAlert' */}
       <PhotoFavButton displayAlert={false} />
+
+      {/* Image element for 'photo' */}
       <img 
         className="photo-list__image" 
-        src={selectedPhoto.urls.regular} 
-        alt={`Image ${selectedPhoto.id}`} 
+        src={photo.urls.regular} 
+        alt={`Image ${photo.id}`} 
         onClick={handleImageClick}
       />
       
       <div className="photo-list__container">
-        <img className="photo-list__user-profile" src={selectedPhoto.user.profile} alt={`User Profile ${selectedPhoto.id}`} />
+        {/* 'Users-profile' - 'image' & 'name' + 'location' - 'city' & 'country' */}
+        <img className="photo-list__user-profile" src={photo.user.profile} alt={`User Profile ${photo.id}`} />
         <div className="user-list__user-info">
-          <p>{selectedPhoto.user.name}</p>
-          <p className="photo-list__user-location">{`${selectedPhoto.location.city}, ${selectedPhoto.location.country}`}</p>
+          <p>{photo.user.name}</p>
+          <p className="photo-list__user-location">
+            {`${photo.location.city}, ${photo.location.country}`}
+          </p>
         </div>
       </div>
     </div>

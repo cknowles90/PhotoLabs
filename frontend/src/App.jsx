@@ -6,37 +6,45 @@ import TopNavigationBar from 'components/TopNavigationBar';
 import HomeRoute from 'routes/HomeRoute';
 import PhotoDetailsModal from 'routes/PhotoDetailsModal';
 
-import useApplicationData from 'hooks/useApplicationData';
+import originalApp from 'hooks/originalApp';
 
-import photos from 'mocks/photos';
+// import photos from 'mocks/photos';
 
 
+// Main Component of PhotoLabs;
 const App = () => {
+  // Destructures the values returned from 'useApplicationData' Hook;
   const {
-    state,
+    likedPhotos, 
+    isModalOpen, 
+    selectedPhoto,
     onPhotoSelect,
     updateToFavPhotoIds,
     onClosePhotoDetailsModal,
-  } = useApplicationData();
+    photos
+  } = originalApp();
 
-  console.log('App Component: state', state);
-  console.log('App Component: likedPhotos', state.likedPhotos);
-  console.log('App Component: selectedPhotos', state.selectedPhoto);
-
+  // JSX structure of PhotoLabs;
   return (
     <div className="App">
-      <TopNavigationBar likedPhotos={state.likedPhotos} />
+      {/* Render 'TopNavigationBar' component with prop: likedPhotos */}
+      <TopNavigationBar likedPhotos={likedPhotos} />
+
+      {/* Render 'HomeRoute' compoenent with props: */}
       <HomeRoute 
         photos={photos} 
-        likedPhotos={state.likedPhotos} 
-        setLikedPhotos={updateToFavPhotoIds}
-        onPhotoClick={onPhotoSelect}
+        likedPhotos={likedPhotos} 
+        updateToFavPhotoIds={updateToFavPhotoIds}
+        isModalOpen={isModalOpen}
+        selectedPhoto={selectedPhoto}
+        onPhotoSelect={onPhotoSelect}
       />
-      {state.selectedPhoto && state.isModalOpen && (
+      {/* Render 'PhotoDetailsModal' component if 'state.selectedPhoto' & 'state.isModalOpen' === true */}
+      {selectedPhoto && isModalOpen && (
         <PhotoDetailsModal 
           onCloseModal={onClosePhotoDetailsModal} 
-          selectedPhoto={state.selectedPhoto}
-          // setLikedPhotos={setLikedPhotos}
+          selectedPhoto={selectedPhoto}
+          likedPhotos={likedPhotos}
         />
       )}
     </div>
