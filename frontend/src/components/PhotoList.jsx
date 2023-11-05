@@ -2,22 +2,23 @@ import React from 'react';
 import '../styles/PhotoList.scss';
 
 import PhotoListItem from './PhotoListItem';
+import useApplicationData from 'hooks/useApplicationData';
 
 
-const PhotoList = ({ photos, likedPhotos, setLikedPhotos, onPhotoClick, selectedPhoto }) => {
-  console.log('Value of onPhotoClick prop in PhotoList', onPhotoClick)
+const PhotoList = () => {
+  const {
+    state: { selectedPhoto, likedPhotos, photos },
+    onPhotoSelect, 
+    updateToFavPhotoIds,
+  } = useApplicationData();
+  
+  console.log('PhotoList: photos', photos);
+  console.log(`PhotoList: likedPhotos`, likedPhotos);
 
   return (
     <div className="photo-list">
       {photos.map((photo) => (
-        <PhotoListItem 
-          key={photo.id} 
-          likedPhotos={likedPhotos} 
-          setLikedPhotos={setLikedPhotos} 
-          photo={photo} 
-          onPhotoClick={onPhotoClick} 
-          selectedPhoto={selectedPhoto}
-        />
+        <PhotoListItem key={photo.id} displayAlert={false} />
       ))}
     </div>
   );

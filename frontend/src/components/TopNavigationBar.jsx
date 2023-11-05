@@ -3,10 +3,13 @@ import '../styles/TopNavigationBar.scss'
 
 import TopicList from './TopicList';
 import FavBadge from './FavBadge';
+import useApplicationData from 'hooks/useApplicationData';
 
 
-const TopNavigationBar = ({ likedPhotos = [] }) => {
-// console.log('likedPhotos', likedPhotos);
+const TopNavigationBar = () => {
+  const {
+    state: { likedPhotos },
+  } = useApplicationData();
 
   return (
     <div className="top-nav-bar">

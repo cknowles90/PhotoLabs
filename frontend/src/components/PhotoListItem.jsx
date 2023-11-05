@@ -2,45 +2,41 @@ import React from "react";
 import "../styles/PhotoListItem.scss";
 
 import PhotoFavButton from "./PhotoFavButton";
+import useApplicationData from "hooks/useApplicationData";
 
 
-const PhotoListItem = ({ photo, likedPhotos, setLikedPhotos, displayAlert, onPhotoClick }) => {
-  // console.log('Received props:', photo, likedPhotos, setLikedPhotos, displayAlert);
-  console.log('Value of onPhotoClick prop in PhotoListItem:', onPhotoClick);
+const PhotoListItem = () => {
+  
+  const {
+    state: { selectedPhoto, likedPhotos },
+    onPhotoSelect,
+  } = useApplicationData();
+  
+  console.log(`PhotoListItem: likedPhotos`, likedPhotos);
+  console.log('PhotoListItem: selectedPhoto', selectedPhoto);
 
   const handleImageClick = () => {
-    console.log('Image clicked:', photo);
-    onPhotoClick(photo);
+    onPhotoSelect(selectedPhoto);
   };
   
   return (
-  <div className="photo-list__item">
-    <PhotoFavButton 
-      photo={photo} 
-      likedPhotos={likedPhotos} 
-      setLikedPhotos={setLikedPhotos} 
-      displayAlert={displayAlert}
-    />
-    <img 
-      className="photo-list__image" 
-      src={photo.urls.regular} 
-      alt={`Image ${photo.id}`} 
-      onClick={handleImageClick}
-    />
-    
-    <div className="photo-list__container">
+    <div className="photo-list__item">
+      <PhotoFavButton displayAlert={false} />
       <img 
-        className="photo-list__user-profile" 
-        src={photo.user.profile} 
-        alt={`User Profile ${photo.id}`}
+        className="photo-list__image" 
+        src={selectedPhoto.urls.regular} 
+        alt={`Image ${selectedPhoto.id}`} 
+        onClick={handleImageClick}
       />
-
-      <div className="user-list__user-info">
-        <p>{photo.user.name}</p>
-        <p className="photo-list__user-location">{`${photo.location.city}, ${photo.location.country}`}</p>
+      
+      <div className="photo-list__container">
+        <img className="photo-list__user-profile" src={selectedPhoto.user.profile} alt={`User Profile ${selectedPhoto.id}`} />
+        <div className="user-list__user-info">
+          <p>{selectedPhoto.user.name}</p>
+          <p className="photo-list__user-location">{`${selectedPhoto.location.city}, ${selectedPhoto.location.country}`}</p>
+        </div>
       </div>
     </div>
-  </div>
   );
 };
 
