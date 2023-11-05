@@ -7,7 +7,7 @@ import useApplicationData from 'hooks/useApplicationData';
 
 
 // 'TopNavigationBar' component;
-const TopNavigationBar = (props) => {
+const TopNavigationBar = () => {
   // Destructures 'likedPhotos"s' value from 'state' returned by 'useApplicationData' Hook
   const {
     state: { likedPhotos },

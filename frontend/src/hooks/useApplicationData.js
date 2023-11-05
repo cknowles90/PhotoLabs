@@ -4,17 +4,18 @@ import photos from 'mocks/photos';
 
 // React Hook :  useApplicationData;
 const useApplicationData = () => {
-
   // Initialize 'state' Hook with useState;
   const [state, setState] = useState({
     // Holds various different properties;
     likedPhotos: [], 
     isModalOpen: false,
     selectedPhoto: null,
+    photos: []
   });
 
-
   console.log('State and Data in useApplicationData:', state);
+  console.log('Photos Data in useApplicationData:', state.photos);
+
   // Function :  'onPhotoSelect' - takes a 'photo' object as an array as an argument;
   const onPhotoSelect = (photo) => {
     // Update 'state', creates a new object with the 'selectedPhotos':'photo' and 'isModalOpen':true;
@@ -44,7 +45,7 @@ const useApplicationData = () => {
 
   // Returns 'state' + functions for use as Hooks in multiple/different components;
   return {
-    
+    state,
     onPhotoSelect,
     updateToFavPhotoIds,
     onClosePhotoDetailModal,

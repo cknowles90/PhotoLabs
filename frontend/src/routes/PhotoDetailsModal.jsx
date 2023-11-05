@@ -5,9 +5,15 @@ import closeSymbol from '../assets/closeSymbol.svg';
 
 import PhotoFavButton from '../components/PhotoFavButton';
 import PhotoList from '../components/PhotoList';
+import useApplicationData from 'hooks/useApplicationData';
 
 // 'PhotoDetailsModal' component;
-const PhotoDetailsModal = (props) => {
+const PhotoDetailsModal = () => {
+  // Destructure values returned from 'useApplicationData' Hook;
+  const {
+    state: { selectedPhoto, likedPhotos },
+    onClosePhotoDetailsModal
+  } = useApplicationData();
   
   // JSX structure for 'PhotoDetailsModal' component;
   return (

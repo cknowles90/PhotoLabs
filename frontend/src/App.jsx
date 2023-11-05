@@ -6,45 +6,45 @@ import TopNavigationBar from 'components/TopNavigationBar';
 import HomeRoute from 'routes/HomeRoute';
 import PhotoDetailsModal from 'routes/PhotoDetailsModal';
 
-import originalApp from 'hooks/originalApp';
+import useApplicationData from 'hooks/useApplicationData';
 
-// import photos from 'mocks/photos';
-
+import photos from 'mocks/photos';
 
 // Main Component of PhotoLabs;
 const App = () => {
   // Destructures the values returned from 'useApplicationData' Hook;
   const {
-    likedPhotos, 
-    isModalOpen, 
-    selectedPhoto,
+    state,
     onPhotoSelect,
     updateToFavPhotoIds,
     onClosePhotoDetailsModal,
-    photos
-  } = originalApp();
+    photos,
+  } = useApplicationData();
+
+  console.log('App Component: state', state);
+  console.log('App Component: likedPhotos', state.likedPhotos);
+  console.log('App Componenet: selectedPhotos', state.selectedPhoto);
+  console.log('App Componenet: photos', photos);
 
   // JSX structure of PhotoLabs;
   return (
     <div className="App">
       {/* Render 'TopNavigationBar' component with prop: likedPhotos */}
-      <TopNavigationBar likedPhotos={likedPhotos} />
+      <TopNavigationBar likedPhotos={state.likedPhotos} />
 
       {/* Render 'HomeRoute' compoenent with props: */}
       <HomeRoute 
         photos={photos} 
-        likedPhotos={likedPhotos} 
+        likedPhotos={state.likedPhotos} 
         updateToFavPhotoIds={updateToFavPhotoIds}
-        isModalOpen={isModalOpen}
-        selectedPhoto={selectedPhoto}
         onPhotoSelect={onPhotoSelect}
       />
       {/* Render 'PhotoDetailsModal' component if 'state.selectedPhoto' & 'state.isModalOpen' === true */}
-      {selectedPhoto && isModalOpen && (
+      {state.selectedPhoto && state.isModalOpen && (
         <PhotoDetailsModal 
-          onCloseModal={onClosePhotoDetailsModal} 
-          selectedPhoto={selectedPhoto}
-          likedPhotos={likedPhotos}
+          onClosePhotoDetailsModal={onClosePhotoDetailsModal} 
+          selectedPhoto={state.selectedPhoto}
+          // likedPhotos={state.likedPhotos}
         />
       )}
     </div>

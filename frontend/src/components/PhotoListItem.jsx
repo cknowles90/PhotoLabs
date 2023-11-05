@@ -2,18 +2,18 @@ import React from "react";
 import "../styles/PhotoListItem.scss";
 
 import PhotoFavButton from "./PhotoFavButton";
+import useApplicationData from "hooks/useApplicationData";
 
 
 // 'PhotoListItem' component;
-const PhotoListItem = (props) => {
+const PhotoListItem = () => {
   const {
-    photo,
-    likedPhotos,
-    updateToFavPhotoIds,
+    state: { selectedPhoto, likedPhotos },
     onPhotoSelect,
-    isModalOpen,
-    selectedPhoto,
-  } = props;
+  } = useApplicationData();
+
+  console.log('PhotoListItem: likedPhotos', likedPhotos);
+  console.log('PhotoListItem: selectedPhoto', selectedPhoto);
 
   // Function :  'handleImageClick';
   const handleImageClick = () => {
@@ -30,18 +30,18 @@ const PhotoListItem = (props) => {
       {/* Image element for 'photo' */}
       <img 
         className="photo-list__image" 
-        src={photo.urls.regular} 
-        alt={`Image ${photo.id}`} 
+        src={selectedPhoto.urls.regular} 
+        alt={`Image ${selectedPhoto.id}`} 
         onClick={handleImageClick}
       />
       
       <div className="photo-list__container">
         {/* 'Users-profile' - 'image' & 'name' + 'location' - 'city' & 'country' */}
-        <img className="photo-list__user-profile" src={photo.user.profile} alt={`User Profile ${photo.id}`} />
+        <img className="photo-list__user-profile" src={selectedPhoto.user.profile} alt={`User Profile ${selectedPhoto.id}`} />
         <div className="user-list__user-info">
-          <p>{photo.user.name}</p>
+          <p>{selectedPhoto.user.name}</p>
           <p className="photo-list__user-location">
-            {`${photo.location.city}, ${photo.location.country}`}
+            {`${selectedPhoto.location.city}, ${selectedPhoto.location.country}`}
           </p>
         </div>
       </div>
