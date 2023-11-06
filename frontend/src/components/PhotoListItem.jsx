@@ -4,16 +4,16 @@ import "../styles/PhotoListItem.scss";
 import PhotoFavButton from "./PhotoFavButton";
 import useApplicationData from "hooks/useApplicationData";
 
-
 // 'PhotoListItem' component;
 const PhotoListItem = () => {
   const {
-    state: { selectedPhoto, likedPhotos },
+    state: { photos, selectedPhoto, likedPhotos },
     onPhotoSelect,
   } = useApplicationData();
 
-  console.log('PhotoListItem: likedPhotos', likedPhotos);
-  console.log('PhotoListItem: selectedPhoto', selectedPhoto);
+  console.log('9 - PhotoListItem: likedPhotos', likedPhotos);
+  console.log('10 - PhotoListItem: selectedPhoto', selectedPhoto);
+  console.log('11 - PhotoListItem: photos', photos);
 
   // Function :  'handleImageClick';
   const handleImageClick = () => {

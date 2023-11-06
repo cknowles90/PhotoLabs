@@ -5,10 +5,8 @@ import TopicListItem from "./TopicListItem";
 
 import topics from '../mocks/topics';
 
-
 // 'TopicList' component;
 const TopicList = () => {
-  
   // JSX structure for 'TopicList' component;
   return (
     <div className="top-nav-bar__topic-list">

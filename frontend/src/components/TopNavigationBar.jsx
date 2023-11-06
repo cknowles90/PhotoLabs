@@ -5,7 +5,6 @@ import TopicList from './TopicList';
 import FavBadge from './FavBadge';
 import useApplicationData from 'hooks/useApplicationData';
 
-
 // 'TopNavigationBar' component;
 const TopNavigationBar = () => {
   // Destructures 'likedPhotos"s' value from 'state' returned by 'useApplicationData' Hook

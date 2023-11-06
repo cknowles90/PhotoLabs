@@ -13,8 +13,8 @@ const PhotoList = () => {
     updateToFavPhotoIds,
   } = useApplicationData();
 
-  console.log('PhotoList: photos', photos);
-  console.log('PhotoList: likedPhotos', likedPhotos);
+  console.log('7 - PhotoList: photos', photos);
+  console.log('8 - PhotoList: likedPhotos', likedPhotos);
 
   // JSX structure of 'PhotoList' component;
   return (

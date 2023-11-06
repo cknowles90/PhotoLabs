@@ -1,4 +1,4 @@
-import React, {} from 'react';
+import React, { useState } from 'react';
 import "../styles/HomeRoute.scss";
 
 import PhotoList from '../components/PhotoList';
@@ -7,7 +7,6 @@ import useApplicationData from 'hooks/useApplicationData';
 // 'HomeRoute' component;
 const HomeRoute = () => {
   // Destructure values returned from 'useApplicationData' Hook;
-
   const {
     state: { photos, likedPhotos },
     onPhotoSelect,
@@ -30,8 +29,3 @@ const HomeRoute = () => {
 };
 
 export default HomeRoute;
-
-
-
-
-// const HomeRoute = ({ photos, likedPhotos, setLikedPhotos, onPhotoClick }) => {

@@ -10,11 +10,11 @@ const useApplicationData = () => {
     likedPhotos: [], 
     isModalOpen: false,
     selectedPhoto: null,
-    photos: []
+    photos: [],
   });
 
-  console.log('State and Data in useApplicationData:', state);
-  console.log('Photos Data in useApplicationData:', state.photos);
+  console.log('1 - State and Data in useApplicationData:', state);
+  console.log('2 - Photos Data in useApplicationData:', state.photos);
 
   // Function :  'onPhotoSelect' - takes a 'photo' object as an array as an argument;
   const onPhotoSelect = (photo) => {
@@ -55,35 +55,3 @@ const useApplicationData = () => {
 
 
 export default useApplicationData;
-
-/*
-
-const [likedPhotos, setLikedPhotos] = useState([]);
-const [isModalOpen, setIsModalOpen] = useState(false);
-const [selectedPhoto, setSelectedPhoto] = useState(null);
-
-// console.log('App likedPhotos', likedPhotos);
-// console.log('App isModalOpen', isModalOpen);
-
-const handleLikeClicked = (photo) => {
-  if (likedPhotos.some((likedPhoto) => likedPhoto.id === photo.id) ) {
-    return setLikedPhotos(likedPhotos.filter((likedPhoto) => likedPhoto.id !== photo.id));
-  }
-    setLikedPhotos([...likedPhotos, photo]);
-};
-
-console.log('App handleLikeClicked', handleLikeClicked);
-
-const handleOpenModal = (photo) => {
-  // console.log('Opening modal...');
-  setIsModalOpen(true);
-  setSelectedPhoto(photo);
-};
-
-const handleCloseModal = () => {
-  setIsModalOpen(false);
-};
-
-console.log('Value of onPhotoClick in App.jsx', handleOpenModal);
-
-*/

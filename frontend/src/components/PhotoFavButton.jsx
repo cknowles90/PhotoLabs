@@ -4,10 +4,8 @@ import '../styles/PhotoFavButton.scss';
 import FavIcon from './FavIcon';
 import useApplicationData from 'hooks/useApplicationData';
 
-
 // 'PhotoFavButton' component;
 function PhotoFavButton() {
-
   // Destructure values from 'useApplicationData' Hook;
   const {
     state: { selectedPhoto, likedPhotos },

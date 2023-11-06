@@ -3,10 +3,8 @@ import FavIcon from './FavIcon';
 
 import '../styles/FavBadge.scss';
 
-
 // 'FavBadge' component;
 const FavBadge = ({ displayAlert }) => {
-
   // JSX structure for 'FavBadge' component;
   return (
     <div className='fav-badge'>
