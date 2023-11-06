@@ -1,8 +1,4 @@
-import { useReducer } from 'react';
-
-import photos from 'mocks/photos';
-import topics from 'mocks/topics';
-
+import { useReducer, useEffect } from 'react';
 
 // useReducer : 
 const initialState = {
@@ -10,16 +6,23 @@ const initialState = {
   isModalOpen: false,
   selectedPhoto: null,
   photos: [],
+  topics: [],
 };
 
 const actionTypes = {
   SELECT_PHOTO: 'SELECT_PHOTO',
   TOGGLE_MODAL: 'TOGGLE_MODAL',
   UPDATE_FAVOURITE: 'UPDATE_FAVOURITE',
+  SET_PHOTO_DATA: 'SET_PHOTO_DATA',
+  SET_TOPICS_DATA: 'SET_TOPICS_DATA',
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case actionTypes.SET_TOPICS_DATA:
+      return { ...state, topics: action.payload };
+    case actionTypes.SET_PHOTO_DATA:
+      return { ...state, photos: action.payload };
     case actionTypes.SELECT_PHOTO:
       return { ...state, selectedPhoto: action.photo, isModalOpen: true };
     case actionTypes.TOGGLE_MODAL:
@@ -56,15 +59,31 @@ const useApplicationData = () => {
     dispatch({ type: actionTypes.UPDATE_FAVOURITE, photo });
   };
 
+  useEffect(() => {
+    fetch("http://localhost:8001/api/photos")
+      .then((response) => response.json())
+      .then((data) => dispatch({ type: actionTypes.SET_PHOTO_DATA, payload: data }));
+      // console.log('Fetched photos data:', data);
+  }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:8001/api/topics")
+      .then((response) => response.json())
+      .then((data) => dispatch({ type: actionTypes.SET_TOPICS_DATA, payload: data }));
+      // console.log('Fetched topics data:', data);
+  }, []);
+
   return {
     state,
     onPhotoSelect,
     updateToFavPhotoIds,
     onClosePhotoDetailsModal,
-    photos,
+    topics: state.topics,
+    photos: state.photos,
   };
 };
 
+export default useApplicationData;
 
 
 // // React Hook :  useApplicationData;
@@ -120,4 +139,3 @@ const useApplicationData = () => {
 // };
 
 
-export default useApplicationData;

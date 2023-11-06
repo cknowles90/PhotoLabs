@@ -16,24 +16,23 @@ const App = () => {
     onPhotoSelect,
     updateToFavPhotoIds,
     onClosePhotoDetailsModal,
-    photos,
   } = useApplicationData();
 
-  console.log('3 - App Component: state', state);
-  console.log('4 - App Component: likedPhotos', state.likedPhotos);
-  console.log('5 - App Componenet: selectedPhotos', state.selectedPhoto);
-  console.log('6 - App Componenet: photos', photos);
+  // console.log('3 - App Component: state', state);
+  // console.log('4 - App Component: likedPhotos', state.likedPhotos);
+  // console.log('5 - App Componenet: selectedPhotos', state.selectedPhoto);
+  // console.log('6 - App Componenet: photos', photos);
 
   // JSX structure of PhotoLabs;
   return (
     <div className="App">
       {/* Render 'TopNavigationBar' component with prop: likedPhotos */}
       {/* <TopNavigationBar likedPhotos={likedPhotos} /> */}
-      <TopNavigationBar likedPhotos={state.likedPhotos} />
+      <TopNavigationBar likedPhotos={state.likedPhotos} topics={state.topics} />
 
       {/* Render 'HomeRoute' compoenent with props: */}
       <HomeRoute 
-        photos={photos} 
+        photos={state.photos} 
         likedPhotos={state.likedPhotos} 
         updateToFavPhotoIds={updateToFavPhotoIds}
         onPhotoSelect={onPhotoSelect}
