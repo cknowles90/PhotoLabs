@@ -13,11 +13,12 @@ const useApplicationData = () => {
     photos: [],
   });
 
-  console.log('1 - State and Data in useApplicationData:', state);
-  console.log('2 - Photos Data in useApplicationData:', state.photos);
+  // console.log('1 - State and Data in useApplicationData:', state);
+  // console.log('2 - Photos Data in useApplicationData:', state.photos);
 
   // Function :  'onPhotoSelect' - takes a 'photo' object as an array as an argument;
   const onPhotoSelect = (photo) => {
+    console.log('photo', photo);
     // Update 'state', creates a new object with the 'selectedPhotos':'photo' and 'isModalOpen':true;
     setState((prev) => ({...prev, selectedPhoto: photo, isModalOpen: true }));
   };
@@ -38,7 +39,7 @@ const useApplicationData = () => {
   };
 
   // Function :  'onClosePhotoDetailModal;
-  const onClosePhotoDetailModal = () => {
+  const onClosePhotoDetailsModal = () => {
     // Closes the 'photo-details-modal', sets 'isModalOpen': false;
     setState((prev) => ({ ...prev, isModalOpen: false }));
   };
@@ -48,7 +49,7 @@ const useApplicationData = () => {
     state,
     onPhotoSelect,
     updateToFavPhotoIds,
-    onClosePhotoDetailModal,
+    onClosePhotoDetailsModal,
     photos,
   };
 };

@@ -2,27 +2,20 @@ import React, { useState } from 'react';
 import "../styles/HomeRoute.scss";
 
 import PhotoList from '../components/PhotoList';
-import useApplicationData from 'hooks/useApplicationData';
 
 // 'HomeRoute' component;
-const HomeRoute = () => {
-  // Destructure values returned from 'useApplicationData' Hook;
-  const {
-    state: { photos, likedPhotos },
-    onPhotoSelect,
-    updateToFavPhotoIds,
-    onClosePhotoDetailsModal
-  } = useApplicationData();
+const HomeRoute = (props) => {
 
   // JSX structure for 'HomeRoute' component
   return (
     <div className="home-route">
       <PhotoList 
-        photos={photos} 
-        likedPhotos={likedPhotos} 
-        updateToFavPhotoIds={updateToFavPhotoIds}
-        onPhotoSelect={onPhotoSelect}
+        photos={props.photos} 
+        likedPhotos={props.likedPhotos} 
+        updateToFavPhotoIds={props.updateToFavPhotoIds}
+        onPhotoSelect={props.onPhotoSelect}
         displayAlert={false}
+        selectedPhoto={props.selectedPhoto}
         />
     </div>
   );

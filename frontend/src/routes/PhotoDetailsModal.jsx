@@ -5,39 +5,33 @@ import closeSymbol from '../assets/closeSymbol.svg';
 
 import PhotoFavButton from '../components/PhotoFavButton';
 import PhotoList from '../components/PhotoList';
-import useApplicationData from 'hooks/useApplicationData';
 
 // 'PhotoDetailsModal' component;
-const PhotoDetailsModal = () => {
-  // // Destructure values returned from 'useApplicationData' Hook;
-  const {
-    state: { selectedPhoto, likedPhotos },
-    onClosePhotoDetailsModal
-  } = useApplicationData();
+const PhotoDetailsModal = (props) => {
   
   // JSX structure for 'PhotoDetailsModal' component;
   return (
     <div className="photo-details-modal">
       {/* Close button & 'X' symbol */}
-      <button className="photo-details-modal__close-button" onClick={onClosePhotoDetailsModal}>
+      <button className="photo-details-modal__close-button" onClick={props.onClosePhotoDetailsModal}>
         <img src={closeSymbol} alt="close symbol" />
       </button>
       <div className="photo-details-modal__images">
         {/* Like button & the selected 'photo'*/}
         <PhotoFavButton displayAlert={false} />
         <img className="photo-details-modal__image" 
-          src={selectedPhoto.urls.full} 
-          alt={`Image ${selectedPhoto.id}`} />
+          src={props.selectedPhoto.urls.full} 
+          alt={`Image ${props.selectedPhoto.id}`} />
           <div className="photo-details-modal__photographer-details">
             {/* 'Photographers-profile' - 'image' & 'name' */}
             <img className="photo-details-modal__photographer-profile" 
-              src={selectedPhoto.user.profile} 
-              alt={`User Profile ${selectedPhoto.id}`} />
+              src={props.selectedPhoto.user.profile} 
+              alt={`User Profile ${props.selectedPhoto.id}`} />
               <div className="photo-details-modal__photograper-info">
-                {selectedPhoto.user.name}
+                {props.selectedPhoto.user.name}
                 <div className="photo-details-modal__photographer-location">
                   {/* 'Photographers-location' - 'city' & 'country'*/}
-                  {selectedPhoto.location.city}, {selectedPhoto.location.country}
+                  {props.selectedPhoto.location.city}, {props.selectedPhoto.location.country}
                 </div>
               </div>
            </div>
@@ -46,8 +40,8 @@ const PhotoDetailsModal = () => {
       <div className="photo-details-modal__images">
         {/* Render 'PhotoList' component with 'related-photos' & 'likedPhotos */}
         <PhotoList 
-          photos={Object.values(selectedPhoto.similar_photos)} 
-          likedPhotos={likedPhotos} 
+          photos={Object.values(props.selectedPhoto.similar_photos)} 
+          likedPhotos={props.likedPhotos} 
           displayAlert={false} />
       </div>  
     </div>

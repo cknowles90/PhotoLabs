@@ -8,8 +8,6 @@ import PhotoDetailsModal from 'routes/PhotoDetailsModal';
 
 import useApplicationData from 'hooks/useApplicationData';
 
-import photos from 'mocks/photos';
-
 // Main Component of PhotoLabs;
 const App = () => {
   // Destructures the values returned from 'useApplicationData' Hook;
@@ -40,6 +38,7 @@ const App = () => {
         updateToFavPhotoIds={updateToFavPhotoIds}
         onPhotoSelect={onPhotoSelect}
         onCLosePotoDetailsModal={onClosePhotoDetailsModal}
+        selectedPhoto={state.selectedPhoto}
       />
 
       {/* Render 'PhotoDetailsModal' component if 'state.selectedPhoto' & 'state.isModalOpen' === true */}
@@ -47,6 +46,7 @@ const App = () => {
         <PhotoDetailsModal 
           onClosePhotoDetailsModal={onClosePhotoDetailsModal} 
           selectedPhoto={state.selectedPhoto}
+          onPhotoSelect={state.onPhotoSelect}
           likedPhotos={state.likedPhotos}
         />
       )}

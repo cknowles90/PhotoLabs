@@ -2,46 +2,37 @@ import React from "react";
 import "../styles/PhotoListItem.scss";
 
 import PhotoFavButton from "./PhotoFavButton";
-import useApplicationData from "hooks/useApplicationData";
 
 // 'PhotoListItem' component;
-const PhotoListItem = () => {
-  const {
-    state: { photos, selectedPhoto, likedPhotos },
-    onPhotoSelect,
-  } = useApplicationData();
-
-  console.log('9 - PhotoListItem: likedPhotos', likedPhotos);
-  console.log('10 - PhotoListItem: selectedPhoto', selectedPhoto);
-  console.log('11 - PhotoListItem: photos', photos);
-
+const PhotoListItem = (props) => {
+  console.log('props', props);
   // Function :  'handleImageClick';
   const handleImageClick = () => {
     // when 'photo' is selected, 'selectedPhoto' is stored with 'photo' information;
-    onPhotoSelect(selectedPhoto);
+    props.onPhotoSelect(props.photo);
   };
   
   // JSX structure for 'PhotoListItem' component;
   return (
     <div className="photo-list__item">
       {/* Render 'PhotoFavButton' component with prop: 'displayAlert' */}
-      <PhotoFavButton displayAlert={false} />
+      <PhotoFavButton displayAlert={false} selectedPhoto={props.selectedPhoto} updateToFavPhotoIds={props.updateToFavPhotoIds}/>
 
       {/* Image element for 'photo' */}
       <img 
         className="photo-list__image" 
-        src={selectedPhoto.urls.regular} 
-        alt={`Image ${selectedPhoto.id}`} 
+        src={props.photo.urls.regular} 
+        alt={`Image ${props.photo.id}`} 
         onClick={handleImageClick}
       />
       
       <div className="photo-list__container">
         {/* 'Users-profile' - 'image' & 'name' + 'location' - 'city' & 'country' */}
-        <img className="photo-list__user-profile" src={selectedPhoto.user.profile} alt={`User Profile ${selectedPhoto.id}`} />
+        <img className="photo-list__user-profile" src={props.photo.user.profile} alt={`User Profile ${props.photo.id}`} />
         <div className="user-list__user-info">
-          <p>{selectedPhoto.user.name}</p>
+          <p>{props.photo.user.name}</p>
           <p className="photo-list__user-location">
-            {`${selectedPhoto.location.city}, ${selectedPhoto.location.country}`}
+            {`${props.photo.location.city}, ${props.photo.location.country}`}
           </p>
         </div>
       </div>
