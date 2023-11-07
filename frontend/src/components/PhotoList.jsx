@@ -5,10 +5,6 @@ import PhotoListItem from './PhotoListItem';
 
 // 'PhotoList' component;
 const PhotoList = (props) => {
-
-  // console.log('7 - PhotoList: photos', photos);
-  // console.log('8 - PhotoList: likedPhotos', likedPhotos);
-
   // JSX structure of 'PhotoList' component;
   return (
     <div className="photo-list">

@@ -5,7 +5,6 @@ import PhotoFavButton from "./PhotoFavButton";
 
 // 'PhotoListItem' component;
 const PhotoListItem = (props) => {
-  console.log('props', props);
   // Function :  'handleImageClick';
   const handleImageClick = () => {
     // when 'photo' is selected, 'selectedPhoto' is stored with 'photo' information;

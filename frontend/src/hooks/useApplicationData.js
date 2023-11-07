@@ -7,6 +7,7 @@ const initialState = {
   selectedPhoto: null,
   photos: [],
   topics: [],
+  selectedPhotosTopic: null,
 };
 
 const actionTypes = {
@@ -15,10 +16,13 @@ const actionTypes = {
   UPDATE_FAVOURITE: 'UPDATE_FAVOURITE',
   SET_PHOTO_DATA: 'SET_PHOTO_DATA',
   SET_TOPICS_DATA: 'SET_TOPICS_DATA',
+  SET_PHOTOS_TOPIC_DATA: 'SET_PHOTOS_TOPIC_DATA',
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case actionTypes.SET_PHOTOS_TOPIC_DATA:
+      return { ...state, selectedPhotosTopic: action.payload };
     case actionTypes.SET_TOPICS_DATA:
       return { ...state, topics: action.payload };
     case actionTypes.SET_PHOTO_DATA:
@@ -59,19 +63,39 @@ const useApplicationData = () => {
     dispatch({ type: actionTypes.UPDATE_FAVOURITE, photo });
   };
 
+  const getPhotosByTopic = (topicId) => {
+    dispatch({ type: actionTypes.SET_PHOTOS_TOPIC_DATA, payload: topicId});
+  };
+
+
   useEffect(() => {
     fetch("http://localhost:8001/api/photos")
       .then((response) => response.json())
-      .then((data) => dispatch({ type: actionTypes.SET_PHOTO_DATA, payload: data }));
-      // console.log('Fetched photos data:', data);
+      .then((data) => dispatch({ type: actionTypes.SET_PHOTO_DATA, payload: data }))
+      .catch((error) => {
+        console.error('Error fetching photos:', error);
+      });
   }, []);
 
   useEffect(() => {
     fetch("http://localhost:8001/api/topics")
       .then((response) => response.json())
-      .then((data) => dispatch({ type: actionTypes.SET_TOPICS_DATA, payload: data }));
-      // console.log('Fetched topics data:', data);
+      .then((data) => dispatch({ type: actionTypes.SET_TOPICS_DATA, payload: data }))
+      .catch((error) => {
+        console.error('Error fetching topics:', error);
+      })
   }, []);
+
+  useEffect(() => {
+    if (state.selectedPhotosTopic) {
+      fetch(`http://localhost:8001/api/topics/photos/${state.selectedPhotosTopic}`)
+      .then((response) => response.json())
+      .then((data) => dispatch({ type: actionTypes.SET_PHOTOS_TOPIC_DATA, payload: data}))
+      .catch((error) => {
+        console.error('Error fetching photos topics:', error);
+      })
+    }
+  }, [state.selectedPhotosTopic]);
 
   return {
     state,

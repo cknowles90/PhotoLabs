@@ -18,11 +18,6 @@ const App = () => {
     onClosePhotoDetailsModal,
   } = useApplicationData();
 
-  // console.log('3 - App Component: state', state);
-  // console.log('4 - App Component: likedPhotos', state.likedPhotos);
-  // console.log('5 - App Componenet: selectedPhotos', state.selectedPhoto);
-  // console.log('6 - App Componenet: photos', photos);
-
   // JSX structure of PhotoLabs;
   return (
     <div className="App">
