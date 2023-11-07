@@ -18,7 +18,7 @@ const PhotoDetailsModal = (props) => {
       </button>
       <div className="photo-details-modal__images">
         {/* Like button & the selected 'photo'*/}
-        <PhotoFavButton displayAlert={false} />
+        <PhotoFavButton displayAlert={false} isLiked={props.isLiked} />
         <img className="photo-details-modal__image" 
           src={props.selectedPhoto.urls.full} 
           alt={`Image ${props.selectedPhoto.id}`} />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import "../styles/HomeRoute.scss";
 
 import PhotoList from '../components/PhotoList';
@@ -12,6 +12,7 @@ const HomeRoute = (props) => {
       <PhotoList 
         photos={props.photos} 
         likedPhotos={props.likedPhotos} 
+        isLiked={props.isLiked}
         updateToFavPhotoIds={props.updateToFavPhotoIds}
         onPhotoSelect={props.onPhotoSelect}
         displayAlert={false}

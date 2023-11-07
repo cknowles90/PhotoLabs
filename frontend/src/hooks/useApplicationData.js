@@ -2,80 +2,91 @@ import { useReducer, useEffect } from 'react';
 // import axios from 'axios';
 
 const initialState = {
-  likedPhotos: [],
   isModalOpen: false,
   toggleLikedPhotos: false,
-  modalPhotos: [],
+  showLikedPhotos: false,
+  isLiked: false,
+  selectedPhotosTopic: null,
   selectedPhoto: null,
+  handleTopicClick: null,
+  likedPhotos: [],
+  modalPhotos: [],
   photos: [],
   topics: [],
-  selectedPhotosTopic: null,
   handleFavBadgeClick: () => {},
 };
 
 const actionTypes = {
+  SET_PHOTOS_TOPIC_DATA: 'SET_PHOTOS_TOPIC_DATA',
+  SET_TOPICS_DATA: 'SET_TOPICS_DATA',
+  SET_PHOTO_DATA: 'SET_PHOTO_DATA',
   SELECT_PHOTO: 'SELECT_PHOTO',
   TOGGLE_MODAL: 'TOGGLE_MODAL',
   TOGGLE_LIKED_PHOTOS: 'TOGGLE_LIKED_PHOTOS',
+  HANDLE_TOPIC_CLICK: 'HANDLE_TOPIC_CLICK',
   UPDATE_FAVOURITE: 'UPDATE_FAVOURITE',
-  SET_PHOTO_DATA: 'SET_PHOTO_DATA',
-  SET_TOPICS_DATA: 'SET_TOPICS_DATA',
-  SET_PHOTOS_TOPIC_DATA: 'SET_PHOTOS_TOPIC_DATA',
+  TOGGLE_LIKE: 'TOGGLE_LIKE',
 };
 
 const appReducer = (state, action) => {
   switch (action.type) {
+    case actionTypes.TOGGLE_LIKE:
+      return {
+        ...state,
+        isLiked: !state.isLiked
+      };
     case actionTypes.SET_PHOTOS_TOPIC_DATA:
       return { 
         ...state, 
-        selectedPhotosTopic: 
-        action.payload 
+        selectedPhotosTopic: action.payload 
       };
     case actionTypes.SET_TOPICS_DATA:
       return { 
         ...state, 
-        topics: 
-        action.payload 
+        topics: action.payload 
       };
     case actionTypes.SET_PHOTO_DATA:
       return { 
         ...state, 
-        photos: 
-        action.payload 
+        photos: action.payload 
       };
     case actionTypes.SELECT_PHOTO:
       return { 
         ...state, 
-        selectedPhoto: 
-        action.photo, 
+        selectedPhoto: action.photo, 
         isModalOpen: true 
       };
     case actionTypes.TOGGLE_MODAL:
       return { 
         ...state, 
-        isModalOpen: 
-        !state.isModalOpen 
+        isModalOpen: !state.isModalOpen 
+      };
+    case actionTypes.TOGGLE_LIKED_PHOTOS:
+      return {
+        ...state,
+        showLikedPhotos: !state.showLikedPhotos 
+      };
+    case actionTypes.HANDLE_TOPIC_CLICK:
+      return {
+        ...state,
+        handleTopicClick: action.topicId,
       };
     case actionTypes.UPDATE_FAVOURITE:
       if (action.photo && action.photo.id) {
         const likedPhotos = state.likedPhotos.slice();
-        const photoIndex = likedPhotos.findIndex((likedPhotos) => likedPhoto.id === action.photo.id);
+        const photoIndex = likedPhotos.findIndex((likedPhoto) => likedPhoto.id === action.photo.id);
         if (photoIndex !== -1) {
           likedPhotos.splice(photoIndex, 1);
         } else {
           likedPhotos.push(action.photo);
         }
-          // If 'likedPhotos' is already liked, remove from 'likedPhotos';
         return { 
           ...state, 
           likedPhotos,
         };
-      }
-    case actionTypes.TOGGLE_LIKED_PHOTOS:
-      return {
-        ...state,
-        showLikedPhotos: !state.showLikedPhotos };
-
+      };
+      break;
+      
     default: 
     return state;
   }
@@ -83,7 +94,6 @@ const appReducer = (state, action) => {
 
 const useApplicationData = () => {
   const [state, dispatch] = useReducer(appReducer, initialState);
-
 
   const onPhotoSelect = (photo) => {
     dispatch({ type: actionTypes.SELECT_PHOTO, photo });
@@ -94,15 +104,11 @@ const useApplicationData = () => {
   };
 
   const updateToFavPhotoIds = (photo) => {
-    dispatch({ type: actionTypes.UPDATE_FAVOURITE, photo });
-  };
-
-  const getPhotosByTopic = (topicId) => {
-    dispatch({ type: actionTypes.SET_PHOTOS_TOPIC_DATA, payload: topicId});
-  };
-
-  const onTopicSelect = (topicId) => {
-    dispatch({ type: actionTypes.SET_PHOTOS_TOPIC_DATA, payload: topicId });
+    if (photo && photo.id) {
+      dispatch({ type: actionTypes.UPDATE_FAVOURITE, photo});
+      const isLiked = state.likedPhotos.some((likedPhoto) => likedPhoto.id === photo.id);
+      dispatch({ type: actionTypes.TOGGLE_LIKE, isLiked });
+    }
   };
 
   const toggleLikedPhotos = () => {
@@ -111,6 +117,14 @@ const useApplicationData = () => {
 
   const handleFavBadgeClick = () => {
     dispatch({ type: actionTypes.TOGGLE_LIKED_PHOTOS});
+  };
+
+  const handleTopicClick = (topicId) => {
+    dispatch({ type: actionTypes.HANDLE_TOPIC_CLICK, topicId });
+  };
+
+  const handleLike = () => {
+    dispatch({ type: actionTypes.TOGGLE_LIKE });
   };
 
   useEffect(() => {
@@ -178,14 +192,31 @@ const useApplicationData = () => {
     }
   }, [state.showLikedPhotos]);
 
+  useEffect(() => {
+    const topicId = state.selectedPhotosTopic;
+
+    if (state.handleTopicClick) {
+      fetch(`http://localhost:8001/api/topics/photos/${topicId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        dispatch({ type: actionTypes.SET_PHOTOS_TOPIC_DATA, payload: data});
+      })
+      .catch((error) => {
+        console.error('Error fetching photos by topic:', error);
+      });
+      dispatch({ type: actionTypes.HANDLE_TOPIC_CLICK, topicId: null });
+    }
+  }, [state.handleTopicClick, state.selectedPhotosTopic]);
+
   return {
     state,
     onPhotoSelect,
     updateToFavPhotoIds,
     onClosePhotoDetailsModal,
-    onTopicSelect,
-    handleFavBadgeClick,
     toggleLikedPhotos,
+    handleLike,
+    handleFavBadgeClick,
+    handleTopicClick,
     topics: state.topics,
     photos: state.photos,
     selectedPhotosTopic: state.selectedPhotosTopic,

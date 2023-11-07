@@ -15,7 +15,13 @@ const PhotoListItem = (props) => {
   return (
     <div className="photo-list__item">
       {/* Render 'PhotoFavButton' component with prop: 'displayAlert' */}
-      <PhotoFavButton displayAlert={false} selectedPhoto={props.selectedPhoto} updateToFavPhotoIds={props.updateToFavPhotoIds}/>
+      <PhotoFavButton 
+        displayAlert={false} 
+        selectedPhoto={props.selectedPhoto} 
+        handleLike={props.handleLike} 
+        isLiked={props.isLiked} 
+        updateToFavPhotoIds={props.updateToFavPhotoIds}
+      />
 
       {/* Image element for 'photo' */}
       <img 

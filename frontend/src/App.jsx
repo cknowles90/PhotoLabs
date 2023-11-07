@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.scss';
 
 import TopNavigationBar from 'components/TopNavigationBar';
-
 import HomeRoute from 'routes/HomeRoute';
 import PhotoDetailsModal from 'routes/PhotoDetailsModal';
-
 import useApplicationData from 'hooks/useApplicationData';
 
 // Main Component of PhotoLabs;
@@ -15,11 +13,10 @@ const App = () => {
     state,
     onPhotoSelect,
     updateToFavPhotoIds,
+    handleLike,
     onClosePhotoDetailsModal,
-    onTopicSelect,
-    onToggleLikedPhotos,
-    handleFavBadgeClick,
-    handleTopicClick, 
+    handleTopicClick,
+    displayAlert,
   } = useApplicationData();
 
   // JSX structure of PhotoLabs;
@@ -27,7 +24,16 @@ const App = () => {
     <div className="App">
       {/* Render 'TopNavigationBar' component with prop: likedPhotos */}
       {/* <TopNavigationBar likedPhotos={likedPhotos} /> */}
-      <TopNavigationBar likedPhotos={state.likedPhotos} topics={state.topics} onTopicSelect={onTopicSelect} onToggleLikedPhotos={onToggleLikedPhotos} />
+      <TopNavigationBar 
+        likedPhotos={state.likedPhotos} 
+        topics={state.topics} 
+        handleLike={handleLike}
+        handleTopicClick={handleTopicClick} 
+        toggleLikedPhotos={state.toggleLikedPhotos} 
+        showedLikedPhotos={state.showLikedPhotos}
+        displayAlert={displayAlert}
+        updateToFavPhotoIds={updateToFavPhotoIds}
+      />
 
       {/* Render 'HomeRoute' compoenent with props: */}
       <HomeRoute 
