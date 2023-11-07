@@ -1,9 +1,10 @@
 import { useReducer, useEffect } from 'react';
+// import axios from 'axios';
 
-// useReducer : 
 const initialState = {
   likedPhotos: [],
   isModalOpen: false,
+  modalPhotos: [],
   selectedPhoto: null,
   photos: [],
   topics: [],
@@ -19,7 +20,7 @@ const actionTypes = {
   SET_PHOTOS_TOPIC_DATA: 'SET_PHOTOS_TOPIC_DATA',
 };
 
-const reducer = (state, action) => {
+const appReducer = (state, action) => {
   switch (action.type) {
     case actionTypes.SET_PHOTOS_TOPIC_DATA:
       return { ...state, selectedPhotosTopic: action.payload };
@@ -32,24 +33,27 @@ const reducer = (state, action) => {
     case actionTypes.TOGGLE_MODAL:
       return { ...state, isModalOpen: !state.isModalOpen };
     case actionTypes.UPDATE_FAVOURITE:
-      if (state.likedPhotos.some((likedPhotos) => likedPhotos.id === action.photo.id)) {
-        // If 'likedPhotos' is already liked, remove from 'likedPhotos';
-        return { 
-          ...state, 
-          likedPhotos: state.likedPhotos.filter((likedPhoto) => likedPhoto.id !== action.photo.id)
-         };
-      } else {
-        // If 'photo' is not liked, add to 'likedPhotos';
-        return { ...state, likedPhotos: [...state.likedPhotos, action.photo] };
+      if (action.photo && action.photo.id) {
+        if (state.likedPhotos.some((likedPhotos) => likedPhotos.id === action.photo.id)) {
+          // If 'likedPhotos' is already liked, remove from 'likedPhotos';
+          return { 
+            ...state, 
+            likedPhotos: state.likedPhotos.filter((likedPhoto) => likedPhoto.id !== action.photo.id)
+          };
+        } else {
+          // If 'photo' is not liked, add to 'likedPhotos';
+          return { ...state, likedPhotos: [...state.likedPhotos, action.photo] };
+        }
       }
-
+        
       default: 
       return state;
   }
 };
 
 const useApplicationData = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(appReducer, initialState);
+
 
   const onPhotoSelect = (photo) => {
     dispatch({ type: actionTypes.SELECT_PHOTO, photo });
@@ -65,6 +69,10 @@ const useApplicationData = () => {
 
   const getPhotosByTopic = (topicId) => {
     dispatch({ type: actionTypes.SET_PHOTOS_TOPIC_DATA, payload: topicId});
+  };
+
+  const onTopicSelect = (topicId) => {
+    dispatch({ type: actionTypes.SET_PHOTOS_TOPIC_DATA, payload: topicId });
   };
 
 
@@ -108,6 +116,17 @@ const useApplicationData = () => {
 };
 
 export default useApplicationData;
+
+// const [isLiked, setIsLiked] = useState(false);
+
+// // Function :  'handleLike';
+// const handleLike = () => {
+//   // Toggles 'isLiked' state;
+//   setIsLiked(!isLiked);
+//   // Updates the 'isLiked' 'photo/s' in the 'useApplicationData"s 'state' using 'updateToFavPhotoIds' function; 
+//   props.updateToFavPhotoIds(props.selectedPhoto);
+// };
+
 
 
 // // React Hook :  useApplicationData;
