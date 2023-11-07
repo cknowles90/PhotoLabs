@@ -4,16 +4,19 @@ import { useReducer, useEffect } from 'react';
 const initialState = {
   likedPhotos: [],
   isModalOpen: false,
+  toggleLikedPhotos: false,
   modalPhotos: [],
   selectedPhoto: null,
   photos: [],
   topics: [],
   selectedPhotosTopic: null,
+  handleFavBadgeClick: () => {},
 };
 
 const actionTypes = {
   SELECT_PHOTO: 'SELECT_PHOTO',
   TOGGLE_MODAL: 'TOGGLE_MODAL',
+  TOGGLE_LIKED_PHOTOS: 'TOGGLE_LIKED_PHOTOS',
   UPDATE_FAVOURITE: 'UPDATE_FAVOURITE',
   SET_PHOTO_DATA: 'SET_PHOTO_DATA',
   SET_TOPICS_DATA: 'SET_TOPICS_DATA',
@@ -23,31 +26,58 @@ const actionTypes = {
 const appReducer = (state, action) => {
   switch (action.type) {
     case actionTypes.SET_PHOTOS_TOPIC_DATA:
-      return { ...state, selectedPhotosTopic: action.payload };
+      return { 
+        ...state, 
+        selectedPhotosTopic: 
+        action.payload 
+      };
     case actionTypes.SET_TOPICS_DATA:
-      return { ...state, topics: action.payload };
+      return { 
+        ...state, 
+        topics: 
+        action.payload 
+      };
     case actionTypes.SET_PHOTO_DATA:
-      return { ...state, photos: action.payload };
+      return { 
+        ...state, 
+        photos: 
+        action.payload 
+      };
     case actionTypes.SELECT_PHOTO:
-      return { ...state, selectedPhoto: action.photo, isModalOpen: true };
+      return { 
+        ...state, 
+        selectedPhoto: 
+        action.photo, 
+        isModalOpen: true 
+      };
     case actionTypes.TOGGLE_MODAL:
-      return { ...state, isModalOpen: !state.isModalOpen };
+      return { 
+        ...state, 
+        isModalOpen: 
+        !state.isModalOpen 
+      };
     case actionTypes.UPDATE_FAVOURITE:
       if (action.photo && action.photo.id) {
-        if (state.likedPhotos.some((likedPhotos) => likedPhotos.id === action.photo.id)) {
-          // If 'likedPhotos' is already liked, remove from 'likedPhotos';
-          return { 
-            ...state, 
-            likedPhotos: state.likedPhotos.filter((likedPhoto) => likedPhoto.id !== action.photo.id)
-          };
+        const likedPhotos = state.likedPhotos.slice();
+        const photoIndex = likedPhotos.findIndex((likedPhotos) => likedPhoto.id === action.photo.id);
+        if (photoIndex !== -1) {
+          likedPhotos.splice(photoIndex, 1);
         } else {
-          // If 'photo' is not liked, add to 'likedPhotos';
-          return { ...state, likedPhotos: [...state.likedPhotos, action.photo] };
+          likedPhotos.push(action.photo);
         }
+          // If 'likedPhotos' is already liked, remove from 'likedPhotos';
+        return { 
+          ...state, 
+          likedPhotos,
+        };
       }
-        
-      default: 
-      return state;
+    case actionTypes.TOGGLE_LIKED_PHOTOS:
+      return {
+        ...state,
+        showLikedPhotos: !state.showLikedPhotos };
+
+    default: 
+    return state;
   }
 };
 
@@ -75,6 +105,13 @@ const useApplicationData = () => {
     dispatch({ type: actionTypes.SET_PHOTOS_TOPIC_DATA, payload: topicId });
   };
 
+  const toggleLikedPhotos = () => {
+    dispatch({ type: actionTypes.TOGGLE_LIKED_PHOTOS });
+  };
+
+  const handleFavBadgeClick = () => {
+    dispatch({ type: actionTypes.TOGGLE_LIKED_PHOTOS});
+  };
 
   useEffect(() => {
     fetch("http://localhost:8001/api/photos")
@@ -105,17 +142,75 @@ const useApplicationData = () => {
     }
   }, [state.selectedPhotosTopic]);
 
+  useEffect(() => {
+    if (state.toggleLikedPhotos) {
+      fetch(`http://localhost:8001/api/photos/${state.toggleLikedPhotos}`)
+      .then((response) => response.json())
+      .then((data) => dispatch({ type: actionTypes.TOGGLE_LIKED_PHOTOS, payload: data}))
+      .catch((error) => {
+        console.error('Error fetching liked photos:', error);
+      })
+    } else {
+      fetch(`http://localhost:8001/api/photos`)
+      .then((response) => response.json())
+      .then((data) => dispatch({ type: actionTypes.SET_PHOTO_DATA, payload: data }))
+      .catch((error) => {
+        console.error('Error fetching photos:', error);
+      })
+    }
+  }, [state.toggleLikedPhotos]);
+
+  useEffect(() => {
+    if (state.showLikedPhotos) {
+      fetch(`http://localhost:8001/${likedPhotos}`)
+      .then((response) => response.json())
+      .then((data) => dispatch({ type: actionTypes.TOGGLE_LIKED_PHOTOS, payload: data}))
+      .catch((error) => {
+        console.error('Error fetching liked photos:', error);
+      })
+    } else {
+      fetch(`http://localhost:8001/api/photos`)
+      .then((response) => response.json())
+      .then((data) => dispatch({ type: actionTypes.SET_PHOTO_DATA, payload: data }))
+      .catch((error) => {
+        console.error('Error fetching photos:', error);
+      })
+    }
+  }, [state.showLikedPhotos]);
+
   return {
     state,
     onPhotoSelect,
     updateToFavPhotoIds,
     onClosePhotoDetailsModal,
+    onTopicSelect,
+    handleFavBadgeClick,
+    toggleLikedPhotos,
     topics: state.topics,
     photos: state.photos,
+    selectedPhotosTopic: state.selectedPhotosTopic,
   };
 };
 
 export default useApplicationData;
+
+
+
+
+// if (action.photo && action.photo.id) {
+//   if (state.likedPhotos.some((likedPhotos) => likedPhotos.id === action.photo.id)) {
+//     // If 'likedPhotos' is already liked, remove from 'likedPhotos';
+//     return { 
+//       ...state, 
+//       likedPhotos: state.likedPhotos.filter((likedPhoto) => likedPhoto.id !== action.photo.id)
+//     };
+//   } else {
+//     // If 'photo' is not liked, add to 'likedPhotos';
+//     return { ...state, likedPhotos: [...state.likedPhotos, action.photo] };
+//   }
+// }
+
+
 
 // const [isLiked, setIsLiked] = useState(false);
 

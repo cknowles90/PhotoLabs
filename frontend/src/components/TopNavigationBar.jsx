@@ -6,20 +6,17 @@ import FavBadge from './FavBadge';
 
 // 'TopNavigationBar' component;
 const TopNavigationBar = (props) => {
-    const handleTopicClick = (topicId) => {
-      props.onTopicClick(topicId);
-    };
-  
+
   // JSX structure for 'TopNavigationBar' component;
   return (
     <div className="top-nav-bar">
       {/*  Renders the PhotoLabs logo */}
       <span className="top-nav-bar__logo">PhotoLabs</span>
       {/* Renders 'TopicList' component */}
-      <TopicList topics={props.topics} onTopicClick={handleTopicClick} />
-      <div className="fav-badge">
+      <TopicList topics={props.topics} handleTopicClick={props.handleTopicClick} />
+      <div className="fav-badge" handleFavBadgeClick={props.handleFavBadgeClick}>
         {/* Renders 'FavBadge' component & displaysAlert if 'likedPhotos' array is not empty */}
-        <FavBadge displayAlert={props.likedPhotos.length > 0} />
+        <FavBadge displayAlert={props.showLikedPhotos} handleFavBadgeClick={handleFavBadgeClick} />
       </div>
     </div>
   );

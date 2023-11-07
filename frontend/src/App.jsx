@@ -16,6 +16,10 @@ const App = () => {
     onPhotoSelect,
     updateToFavPhotoIds,
     onClosePhotoDetailsModal,
+    onTopicSelect,
+    onToggleLikedPhotos,
+    handleFavBadgeClick,
+    handleTopicClick, 
   } = useApplicationData();
 
   // JSX structure of PhotoLabs;
@@ -23,7 +27,7 @@ const App = () => {
     <div className="App">
       {/* Render 'TopNavigationBar' component with prop: likedPhotos */}
       {/* <TopNavigationBar likedPhotos={likedPhotos} /> */}
-      <TopNavigationBar likedPhotos={state.likedPhotos} topics={state.topics} />
+      <TopNavigationBar likedPhotos={state.likedPhotos} topics={state.topics} onTopicSelect={onTopicSelect} onToggleLikedPhotos={onToggleLikedPhotos} />
 
       {/* Render 'HomeRoute' compoenent with props: */}
       <HomeRoute 

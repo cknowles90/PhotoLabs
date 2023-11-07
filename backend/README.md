@@ -32,7 +32,7 @@ Both of these achieve the same result.
 ## Run The Server
 
 Running the server normally
-```sh
+```
 npm start
 ```
 
