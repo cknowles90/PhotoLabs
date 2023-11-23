@@ -1,23 +1,41 @@
 import React from 'react';
+
 import "../styles/HomeRoute.scss";
 
 import PhotoList from '../components/PhotoList';
 
-// 'HomeRoute' component;
-const HomeRoute = (props) => {
 
-  // JSX structure for 'HomeRoute' component
+const HomeRoute = (props) => {
+  
+  const { 
+    toggleModal, 
+    modalPhotoData, 
+    toggleFavourites, 
+    photoData, 
+    dispatchActionSelectedPhoto,
+    isFavourited,
+    selectedTopic,
+  } = props;
+  
+  const filteredPhotos = 
+    selectedTopic !== null
+    ? photoData.filter((photo) => photo.topicId === selectedTopic)
+    : photoData;
+  
   return (
     <div className="home-route">
-      <PhotoList 
-        photos={props.photos} 
-        likedPhotos={props.likedPhotos} 
-        isLiked={props.isLiked}
-        updateToFavPhotoIds={props.updateToFavPhotoIds}
-        onPhotoSelect={props.onPhotoSelect}
-        displayAlert={false}
-        selectedPhoto={props.selectedPhoto}
+
+      <div className="photo-list">
+        <PhotoList 
+          photoData={props.photoData} 
+          filteredPhotos={filteredPhotos}
+          toggleFavourites={toggleFavourites}
+          toggleModal={toggleModal}
+          modalPhotoData={modalPhotoData}
+          dispatchActionSelectedPhoto={dispatchActionSelectedPhoto}
+          isFavourited={isFavourited}
         />
+      </div>
     </div>
   );
 };
